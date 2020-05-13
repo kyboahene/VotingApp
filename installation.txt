@@ -1,0 +1,10 @@
+Create a database "VoteApp"
+
+import poll.sql file from phpmyadmin
+
+
+
+ADMIN LOGIN DETAILS
+URL: localhost/vote/admin
+USER NAME: admin@gmail.com
+PASSWORD: adm1nPassw0rd
