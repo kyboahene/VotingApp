@@ -5,19 +5,19 @@
     <?php
 
     if (isset($_SESSION['fname'])) {
-        echo "<ul>
+        echo "<ul class='links'>
         <a href='manage-profile.php'><li >Hello, " . $_SESSION['fname'] . "</li></a>
         <span class='sm-hide'>|</span>
         <a  href='logout.php'><li>Logout</li></a>
     </ul>";
     } else if (isset($_SESSION['admin'])) {
-        echo "<ul>
+        echo "<ul class='links'>
         <a href='manage-profile.php'><li >Hello, " . $_SESSION['admin'] . "</li></a>
         <span class='sm-hide'>|</span>
-        <a  href='logout.php'><li>Logout</li></a>
+        <a  href='logout.php'><li>Logout</li></i></a>
     </ul>";
     } else {
-        echo "<ul>
+        echo "<ul class='links'>
         <a  href='register.php'><li>Register</li></a>
         <span class='sm-hide'>|</span>
         <a href='index.php'><li >Login</li></a>

@@ -35,7 +35,7 @@ session_start();
                         <tbody>
                             <?php
                             require('connection.php');
-                            $sql = "SELECT * from candidates WHERE position_id= 1";
+                            $sql = "SELECT * from pres_candidates WHERE position_id= 1";
                             $result = mysqli_query($con, $sql);
 
                             while ($row = mysqli_fetch_array($result)) {
@@ -50,7 +50,7 @@ session_start();
                                 $array = mysqli_fetch_array($run);
 
                                 echo "<tr>
-                            <td name='candidate_name'> $name</td>
+                            <td name='name'> $name</td>
                             <td> " . $array['party_name'] . "&nbsp; $partyLogo</td>
                             <td ><input type='submit' name='vote' value='Vote' class='btn'/></td>
                     </tr> ";
@@ -61,6 +61,9 @@ session_start();
                     </table>
                 </form>
             </div>
+            <a href="selectPosition.php" class="text-dark mt-3">
+                <h5 class="font-weight-bold "> <i class="fas fa-angle-double-left"></i>Go Back </h5>
+            </a>
         </div>
     </div>
 
@@ -77,12 +80,12 @@ session_start();
 require('connection.php');
 
 if (isset($_POST['vote'])) {
-    $can_name = $_POST['candidate_name'];
+    $can_name = $_POST['_name'];
 
     if (isset($_SESSION['twin'])) {
         echo "<script>alert('You have already voted')</script>";
     } else {
-        $sql = "UPDATE `candidates` SET `candidate_cvotes` = candidate_cvotes + 1   WHERE candidate_name= '$can_name'";
+        $sql = "UPDATE `candidates` SET `candidate_votes` = candidate_votes + 1   WHERE candidate_name= '$can_name'";
         $run = mysqli_query($con, $sql);
 
         if ($run) {

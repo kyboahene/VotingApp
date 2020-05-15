@@ -33,7 +33,7 @@ if (empty($_SESSION['fname'])) {
                 <tbody>
                     <?php
                     require('connection.php');
-                    $sql = "SELECT * from candidates WHERE position_id= 2";
+                    $sql = "SELECT * from par_candidates WHERE  constituency = '$_SESSION[constituency]'";
                     $result = mysqli_query($con, $sql);
 
                     while ($row = mysqli_fetch_array($result)) {
@@ -58,7 +58,9 @@ if (empty($_SESSION['fname'])) {
                 </tbody>
             </table>
         </form>
-
+        <a href="selectPosition.php" class="text-dark mt-3">
+            <h5 class="font-weight-bold "> <i class="fas fa-angle-double-left"></i>Go Back </h5>
+        </a>
     </div>
     <?php include_once 'includes/footer.php' ?>
 

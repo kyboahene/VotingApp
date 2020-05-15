@@ -19,11 +19,11 @@
         <form name="form1" method="POST">
             <div style="margin-top: 20px; ">
                 <label>Candidate Name :</label>
-                <input type="text" name="candidate_name" required />
+                <input type="text" name="candidate_name" />
             </div>
             <div style="margin-top: 20px">
                 <label>Candidate Image</label>
-                <input name="img1" type="file" class="form-control" required>
+                <input name="img1" type="file" class="form-control">
             </div>
             <div style="margin-top: 20px">
                 <label>Party Name </label>
@@ -42,7 +42,7 @@
             </div>
             <div style="margin-top: 20px">
                 <label>Party Logo :</label>
-                <input name="img2" type="file" class="form-control" required>
+                <input name="img2" type="file" class="form-control">
             </div>
             <div style="margin-top: 20px">
                 <label>Position: </label>
@@ -59,10 +59,17 @@
                     ?>
                 </select>
             </div>
+            <div style="margin-top: 20px; ">
+                <label>Constituency :</label>
+                <input type="text" name="constituency" />
+            </div>
             <div>
                 <input type="submit" name="submit" value="submit" class="btn" />
             </div>
         </form>
+        <a href="admin.php" class="text-dark mt-3">
+            <h5 class="font-weight-bold "> <i class="fas fa-angle-double-left"></i>Go Back </h5>
+        </a>
     </div>
 
     <?php include_once '../includes/footer.php' ?>
@@ -74,12 +81,13 @@
 </html>
 
 <?php
-require('connection.php');
+require('../connection.php');
 if (isset($_POST['submit'])) {
 
     $name =  $_POST['candidate_name'];
     $party_name_id =  $_POST['party'];
     $position = $_POST['position'];
+    $constituency = $_POST['constituency'];
 
     $img1 = $_FILES['img1']['name'];
     $img2 = $_FILES['img2']['name'];
@@ -88,17 +96,28 @@ if (isset($_POST['submit'])) {
     move_uploaded_file($_FILES['img2']['tmp_name'], "images/$img2");
 
     $num = 1;
-    echo $img1;
+    echo $party_name_id;
 
+    if (!$position = 2) {
+        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$img2', '$position', 0)";
+        $run_insert = mysqli_query($con, $insert);
 
-    $insert = "INSERT INTO `candidates`( `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `candidate_cvotes`) VALUES ('$name',  '$img1', '$party_name_id', '$img2', '$position', 0)";
-    $run_insert = mysqli_query($con, $insert);
-
-    if ($run_insert) {
-        echo "<script>alert('Candidates has been added successfully')</script>";
+        if ($run_insert) {
+            echo "<script>alert('Candidates has been added successfully')</script>";
+        } else {
+            echo "<script>alert('not successful')</script>";
+            echo "<script>header(location:insertCandidates.php)</script>";
+        }
     } else {
-        echo "<script>alert('not successful')</script>";
-        echo "<script>header(location:insertCandidates.php)</script>";
+        $insert = "INSERT INTO `par_candidates`( `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `constituency`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$img2', '$position', '$constituency', 0)";
+        $run_insert = mysqli_query($con, $insert);
+
+        if ($run_insert) {
+            echo "<script>alert('Candidates has been added successfully')</script>";
+        } else {
+            echo "<script>alert('not successful')</script>";
+            echo "<script>header(location:insertCandidates.php)</script>";
+        }
     }
 }
 

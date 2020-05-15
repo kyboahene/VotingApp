@@ -14,7 +14,7 @@
         <div class="login">
             <h1>Login</h1>
             <form name="form1" method="POST">
-                <input type="text" name="id_number" placeholder="Voter's ID Number" required />
+                <input type="text" name="id_number" placeholder="Admin's ID Number" required />
                 <input type="password" name="password" placeholder="Password" required />
                 <input type="submit" name="submit" value="sign in" class="btn" />
             </form>
@@ -23,10 +23,11 @@
         </div>
     </div>
 
+    <?php include_once '../includes/footer.php ' ?>
+
     <?php include_once '../includes/bootstrapJs.php' ?>
     <?php include_once '../includes/js.php' ?>
 
-    <?php include_once '../includes/footer.php ' ?>
 </body>
 
 </html>
@@ -36,22 +37,21 @@ require('../connection.php');
 
 if (isset($_POST['submit'])) {
 
-    echo "<script>alert('the')</script>";
-    // $id_number = mysqli_escape_string($con, $_POST['id_number']);
-    // $password = mysqli_escape_string($con, $_POST['password']);
+    $id_number = mysqli_escape_string($con, $_POST['id_number']);
+    $password = mysqli_escape_string($con, $_POST['password']);
 
-    // $sql = "SELECT * FROM administrators WHERE ID_number= '$id_number'";
-    // $result = mysqli_query($con, $sql);
-    // $count = mysqli_num_rows($result);
-    // $row = mysqli_fetch_array($result);
+    $sql = "SELECT * FROM administrators WHERE ID_number= '$id_number'";
+    $result = mysqli_query($con, $sql);
+    $count = mysqli_num_rows($result);
+    $row = mysqli_fetch_array($result);
 
-    // if (password_verify($password, $row['password'])) {
-    //     $fname = $row['first_name'];
-    //     $_SESSION['admin'] = $fname;
+    if ($password == $row['password']) {
+        $fname = $row['first_name'];
+        $_SESSION['admin'] = $fname;
 
-    //     echo " <script>window.open('admin.php', '_self')</script>";
-    // } else {
-    //     echo "<script>alert('Invalid credentials')</script>
-    //               <script>header(location: index.php)</script>";
-    // }
+        echo " <script>window.open('admin.php', '_self')</script>";
+    } else {
+        echo "<script>alert('Invalid credentials')</script>
+                  <script>header(location: index.php)</script>";
+    }
 }

@@ -2,9 +2,9 @@
 require('../connection.php');
 
 session_start();
-// if (empty($_SESSION['admin'])) {
-//     header("location:access-denied.php");
-// }
+if (empty($_SESSION['admin'])) {
+    header("location:access-denied.php");
+}
 ?>
 <html>
 

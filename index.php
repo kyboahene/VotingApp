@@ -4,6 +4,7 @@
 <head>
     <?php include_once 'includes/header.php' ?>
     <?php include_once 'includes/bootstrapCss.php' ?>
+    <link rel="stylesheet" href="css/css.css" />
 </head>
 
 <body>
@@ -24,10 +25,12 @@
         </div>
     </div>
 
+    <?php include_once 'includes/footer.php ' ?>
+
     <?php include_once 'includes/bootstrapJs.php' ?>
     <?php include_once 'includes/js.php' ?>
 
-    <?php include_once 'includes/footer.php ' ?>
+
 </body>
 
 </html>
@@ -46,6 +49,7 @@ if (isset($_POST['submit'])) {
 
     if ($count == $num) {
         $row = mysqli_fetch_array($result);
+        $_SESSION['constituency'] = $row['constituency'];
         $fname = $row['first_name'];
         $_SESSION['member_id'] = $row['member_id'];
         $_SESSION['fname'] = $fname;
