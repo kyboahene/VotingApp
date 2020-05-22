@@ -63,7 +63,7 @@ CREATE TABLE `candidates` (
 -- Dumping data for table `candidates`
 --
 
-INSERT INTO `candidates` (`candidate_id`, `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `candidate_cvotes`) VALUES
+INSERT INTO `candidates` (`candidate_id`, `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `candidate_votes`) VALUES
 (25, 'John Mahama', '', 2, '', 1, 1),
 (26, 'Nana Addo', '', 1, '', 1, 0),
 (27, 'Ivor Green', '', 3, '', 1, 0),

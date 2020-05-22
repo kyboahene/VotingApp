@@ -11,6 +11,9 @@
 <body>
     <?php
     session_start();
+    if (empty($_SESSION['admin'])) {
+        header("location:access-denied.php");
+    }
     ?>
     <?php include_once '../includes/navbar.php' ?>
     <?php include('../connection.php') ?>
@@ -23,7 +26,7 @@
             </div>
             <div style="margin-top: 20px">
                 <label>Candidate Image</label>
-                <input name="img1" type="file" class="form-control">
+                <input name="can_image" type="file" class="form-control" />
             </div>
             <div style="margin-top: 20px">
                 <label>Party Name </label>
@@ -39,10 +42,6 @@
                     }
                     ?>
                 </select>
-            </div>
-            <div style="margin-top: 20px">
-                <label>Party Logo :</label>
-                <input name="img2" type="file" class="form-control">
             </div>
             <div style="margin-top: 20px">
                 <label>Position: </label>
@@ -75,7 +74,6 @@
     <?php include_once '../includes/footer.php' ?>
 
     <?php include_once '../includes/bootstrapJs.php' ?>
-    <?php include_once '../includes/js.php' ?>
 </body>
 
 </html>
@@ -89,17 +87,15 @@ if (isset($_POST['submit'])) {
     $position = $_POST['position'];
     $constituency = $_POST['constituency'];
 
-    $img1 = $_FILES['img1']['name'];
-    $img2 = $_FILES['img2']['name'];
+    $img1 = $_FILES['can_image'];
 
-    move_uploaded_file($_FILES['img1']['tmp_name'], "images/$img1");
-    move_uploaded_file($_FILES['img2']['tmp_name'], "images/$img2");
+    move_uploaded_file($img1, "images/$img1");
 
     $num = 1;
     echo $party_name_id;
 
     if (!$position = 2) {
-        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$img2', '$position', 0)";
+        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `candidate_img`, `party_id`, `position_id`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$position', 0)";
         $run_insert = mysqli_query($con, $insert);
 
         if ($run_insert) {
@@ -109,7 +105,7 @@ if (isset($_POST['submit'])) {
             echo "<script>header(location:insertCandidates.php)</script>";
         }
     } else {
-        $insert = "INSERT INTO `par_candidates`( `candidate_name`, `candidate_img`, `party_id`, `party_logo`, `position_id`, `constituency`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$img2', '$position', '$constituency', 0)";
+        $insert = "INSERT INTO `par_candidates`( `candidate_name`, `candidate_img`, `party_id`,`position_id`, `constituency`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$position', '$constituency', 0)";
         $run_insert = mysqli_query($con, $insert);
 
         if ($run_insert) {

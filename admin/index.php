@@ -4,8 +4,6 @@
 <head>
     <?php include_once '../includes/header.php' ?>
     <?php include_once '../includes/bootstrapCss.php' ?>
-
-    <link rel="icon" href="../images/ecLogo.png" sizes="19x19">
 </head>
 
 <body>
@@ -26,7 +24,6 @@
     <?php include_once '../includes/footer.php ' ?>
 
     <?php include_once '../includes/bootstrapJs.php' ?>
-    <?php include_once '../includes/js.php' ?>
 
 </body>
 

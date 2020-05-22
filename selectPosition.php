@@ -31,7 +31,6 @@ if (empty($_SESSION['fname'])) {
     <?php include_once 'includes/footer.php' ?>
 
     <?php include_once 'includes/bootstrapJs.php' ?>
-    <?php include_once 'includes/js.php' ?>
 </body>
 
 </html>

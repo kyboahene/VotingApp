@@ -17,14 +17,14 @@ if (empty($_SESSION['fname'])) {
 <body>
     <?php include_once('includes/navbar.php'); ?>
     <div class="row center" style="margin-top: 30px; margin-bottom: 30px ">
-        <div>
-            <h1 class="font-weight-bold">ELECTION <?php echo Date('Y') ?></h1>
-            <h4>PARLIMENTARY BALLOT</h4>
+        <div style="margin-left: 45px">
+            <h1 class="font-weight-bold" style="margin-bottom: 0"><img src="images/candidate-2.gif" height='30px' alt="" />ELECTION <?php echo Date('Y') ?></h1>
+            <h4 style="margin-left: 10px">PARLIMENTARY BALLOT</h4>
         </div>
         <form method="POST">
-            <table style="margin-top: 30px">
+            <table style="margin-top: 30px" class="table-striped">
                 <thead>
-                    <tr>
+                    <tr class="font-weight-bold">
                         <th scope="col">Candidate</th>
                         <th scope="col">Party</th>
                         <th scope="col"> Vote</th>
@@ -38,7 +38,6 @@ if (empty($_SESSION['fname'])) {
 
                     while ($row = mysqli_fetch_array($result)) {
                         $name = $row['candidate_name'];
-                        $partyLogo = $row['party_logo'];
                         $img = $row['candidate_img'];
                         $party = $row['party_id'];
                         $can_id = $row['candidate_id'];
@@ -48,10 +47,10 @@ if (empty($_SESSION['fname'])) {
                         $array = mysqli_fetch_array($run);
 
                         echo "<tr>
-                            <td name='candidate_name'> $name</td>
-                            <td> " . $array['party_name'] . "&nbsp; $partyLogo</td>
-                            <td ><input type='submit' name='vote' value='Vote' class='btn'/></td>
-                    </tr> ";
+                               <td name='candidate_name'> $img</td>
+                               <td class='font-weight-bold'> " . $array['party_name'] . "&nbsp;&nbsp; <img style='width: 50px; height: 50px' src='images/" . $array['party_logo'] . "' /></td>
+                               <td><input type='submit' name='vote' value='$name' class='btn'/></td>
+                             </tr> ";
                     }
                     ?>
 
@@ -65,7 +64,6 @@ if (empty($_SESSION['fname'])) {
     <?php include_once 'includes/footer.php' ?>
 
     <?php include_once 'includes/bootstrapJs.php' ?>
-    <?php include_once('includes/js.php'); ?>
 </body>
 
 </html>
@@ -75,18 +73,26 @@ if (empty($_SESSION['fname'])) {
 require('connection.php');
 
 if (isset($_POST['vote'])) {
-    $can_name = $_POST['candidate_name'];
+    $voted = "SELECT par_voted FROM `voters` WHERE member_id='$_SESSION[member_id]'";
+    $run_voted = mysqli_query($con, $voted);
+    $row_voted = mysqli_fetch_array($run_voted);
 
-    if (isset($_SESSION['twin'])) {
+    if ($row_voted['par_voted'] == true) {
         echo "<script>alert('You have already voted')</script>";
     } else {
-        $sql = "UPDATE `candidates` SET `candidate_cvotes` = candidate_cvotes + 1   WHERE candidate_name= '$can_name'";
+        $sql = "UPDATE `par_candidates` SET `candidate_votes` = candidate_votes + 1   WHERE candidate_name= '$_POST[vote]'";
         $run = mysqli_query($con, $sql);
 
         if ($run) {
-            $_SESSION['twin'] = $_SESSION['fname'];
-            echo "<script>alert('You casted your vote for $name')</script>";
-            echo  "<script>window.open('selectPosition.php')</script>";
+            $update = "UPDATE `voters` SET par_voted = true WHERE member_id = '$_SESSION[member_id]'";
+            $run_update = mysqli_query($con, $update);
+
+            if ($run_update) {
+                echo "<script>alert('You casted your vote for $_POST[vote]')</script>";
+                echo  "<script>window.open('selectPosition.php', '_self')</script>";
+            } else {
+                echo "<script>alert('Update was unsuccessful')</script>";
+            }
         } else {
             echo "<script>alert('Your vote didn't go through...Please vote again')</script>";
         }
