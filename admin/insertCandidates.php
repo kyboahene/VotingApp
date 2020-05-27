@@ -17,7 +17,7 @@
     ?>
     <?php include_once '../includes/navbar.php' ?>
     <?php include('../connection.php') ?>
-    <div class="center row" style=" padding-left: 0; padding-top: 30px; padding-bottom: 30px; margin-top: 50px;  ">
+    <div class="center row" style=" padding-left: 0; padding-top: 30px; padding-bottom: 30px; margin-top: 100px;  margin-bottom: 100px">
         <h1 class="font-weight-bold">Add candidates</h1>
         <form name="form1" method="POST">
             <div style="margin-top: 20px; ">
@@ -60,7 +60,18 @@
             </div>
             <div style="margin-top: 20px; ">
                 <label>Constituency :</label>
-                <input type="text" name="constituency" />
+                <select name="constituency">
+                    <option>Select a constituency</option>
+                    <?php
+                    $con_sql = "SELECT * FROM constituency";
+                    $run_conSql = mysqli_query($con, $con_sql);
+                    while ($row = mysqli_fetch_array($run_conSql)) {
+                        $const_id = $row['const_id'];
+                        $constituency = $row['constituency'];
+                        echo "<option value='$const_id'>$constituency</option>";
+                    }
+                    ?>
+                </select>
             </div>
             <div>
                 <input type="submit" name="submit" value="submit" class="btn" />

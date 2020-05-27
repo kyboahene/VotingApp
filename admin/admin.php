@@ -15,7 +15,7 @@ if (empty($_SESSION['admin'])) {
 
 <body>
     <?php include_once '../includes/navbar.php' ?>
-    <div class="container " style="margin: 10rem auto; ">
+    <div class="container " style="  margin: 14.5rem auto; ">
         <div class="row text-center ">
             <h2 class="font-weight-bold">Ghana Polling System</h2>
         </div>

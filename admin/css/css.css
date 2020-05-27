@@ -269,7 +269,7 @@ td {
   color: var(--primary-color);
   text-align: center;
   width: 33%;
-  margin: 8rem auto;
+  margin: 13rem auto;
 }
 .clear {
   position: absolute;
@@ -369,11 +369,17 @@ td {
   .guest-card h1 {
     font-size: 1.5rem;
   }
+  .myLabel {
+    margin-right: 0;
+  }
 }
 
 @media (max-width: 900px) {
   .guests {
     grid-template-columns: repeat(2, 1fr);
+  }
+  .myLabel {
+    margin-right: 0;
   }
 }
 @media (max-width: 760px) {
@@ -415,6 +421,9 @@ td {
   }
   table {
     margin: 0;
+  }
+  .myLabel {
+    margin-right: 0;
   }
 }
 
