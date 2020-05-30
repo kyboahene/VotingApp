@@ -33,7 +33,11 @@ if (empty($_SESSION['fname'])) {
                 <tbody>
                     <?php
                     require('connection.php');
-                    $sql = "SELECT * from par_candidates WHERE  constituency = '$_SESSION[constituency]'";
+                    $get_constituency = "SELECT const_id FROM constituency WHERE constituency = '$_SESSION[constituency]'";
+                    $run_result = mysqli_query($con, $get_constituency);
+                    $const_id = mysqli_fetch_array($run_result);
+
+                    $sql = "SELECT * from par_candidates WHERE  const_id = '$const_id[const_id]'";
                     $result = mysqli_query($con, $sql);
 
                     while ($row = mysqli_fetch_array($result)) {
