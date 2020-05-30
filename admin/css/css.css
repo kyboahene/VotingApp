@@ -30,6 +30,11 @@ body {
   color: var(--light-color);
   background-color: var(--primary-color);
 }
+
+.footer {
+  bottom: 0;
+}
+
 .logo img {
   width: 30px;
   height: 30px;
@@ -382,9 +387,12 @@ td {
     margin-right: 0;
   }
 }
-@media (max-width: 760px) {
+@media (max-width: 768px) {
   .sm-hide {
     display: none;
+  }
+  label.myLabel {
+    margin-right: 0;
   }
   li {
     padding: 0.2rem;
