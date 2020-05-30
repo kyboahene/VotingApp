@@ -45,7 +45,7 @@
 				<thead>
 					<tr>
 						<th>Candidate</th>
-						<th></th>
+						<th>Party</th>
 						<th>Votes</th>
 					</tr>
 				</thead>
@@ -67,12 +67,12 @@
 							echo "
 								<tr>
 								  <td>$name</td>
-								  <td class='font-weight-bold'> " . $array['party_name'] . "&nbsp;&nbsp; <img style='width: 50px; height: 50px' src='../images/$array[party_logo]' /></td>
+								  <td class='font-weight-bold'> " . $array['party_name'] . "&nbsp;&nbsp; <img style='width: 50px; height: 50px' src='images/$array[party_logo]' /></td>
 								  <td>$vote%</td>
 								</tr>
 					         	 ";
 						}
-					} else {
+					} else if (isset($_POST['view'])) {
 						$const = $_POST['constituency'];
 
 						$results = "SELECT * FROM par_candidates WHERE const_id = '$const'";
@@ -98,6 +98,11 @@
 					?>
 				</tbody>
 			</table>
+		</div>
+		<div class="row text-center">
+			<a href="admin.php" class="text-dark mt-3">
+				<h5 class="font-weight-bold "> <i class="fas fa-angle-double-left"></i>Go Back </h5>
+			</a>
 		</div>
 	</div>
 
