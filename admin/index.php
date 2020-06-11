@@ -20,11 +20,10 @@
             </div>
         </div>
     </div>
-
+    
     <?php include_once '../includes/footer.php ' ?>
-
+    
     <?php include_once '../includes/bootstrapJs.php' ?>
-
 </body>
 
 </html>
@@ -37,14 +36,16 @@ if (isset($_POST['submit'])) {
     $id_number = mysqli_escape_string($con, $_POST['id_number']);
     $password = mysqli_escape_string($con, $_POST['password']);
 
-    $sql = "SELECT * FROM administrators WHERE ID_number= '$id_number'";
-    $result = mysqli_query($con, $sql);
-    $count = mysqli_num_rows($result);
-    $row = mysqli_fetch_array($result);
 
-    if ($password == $row['password']) {
-        $fname = $row['first_name'];
-        $_SESSION['admin'] = $fname;
+    $sql = "SELECT * FROM `administrators` WHERE ID_number= '$id_number'";
+    $result = mysqli_query($con, $sql);
+    $row = mysqli_fetch_array($result);
+    
+    echo $row['password'];
+
+    if ($row['password'] == $password) {
+        $id= $row['admin_id'];
+        $_SESSION['admin'] = $id;
 
         echo " <script>window.open('admin.php', '_self')</script>";
     } else {
