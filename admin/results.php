@@ -1,3 +1,9 @@
+<?php 
+	if (empty($_SESSION['admin'])) {
+		header("location:index.php");
+	}
+	?>
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,7 +16,7 @@
 	<?php include_once '../includes/navbar.php' ?>
 	<?php include('../connection.php') ?>
 
-	<div class="container ">
+	<div class="container" style="  margin-right: 11rem ; margin-left: 11rem ; margin-bottom: 11rem ; margin-top: 3rem ;">
 
 		<div class="row text-center">
 			<h2 class="font-weight-bold my-3">View ongoing Election</h2>
@@ -42,11 +48,11 @@
 		<div class="row center mt-5">
 			<h4 class="font-weight-bold text-center">Results</h4>
 			<table class="table-striped my-4">
-				<thead>
-					<tr>
-						<th>Candidate</th>
-						<th>Party</th>
-						<th>Votes</th>
+				<thead >
+					<tr >
+						<th class="font-weight-bold">Candidate</th>
+						<th class="font-weight-bold">Party</th>
+						<th class="font-weight-bold">Votes</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,11 +60,16 @@
 					if (isset($_POST['per_view'])) {
 						$results = "SELECT * from pres_candidates";
 						$run_results = mysqli_query($con, $results);
+
+						$sql = "SELECT * FROM voters";
+						$run_num = mysqli_query($con, $sql);
+						$num_of_voters = mysqli_num_rows($run_num);
+
 						while ($myRow = mysqli_fetch_array($run_results)) {
 							$name = $myRow['candidate_name'];
 							$party = $myRow['party_id'];
 							$can_votes = $myRow['candidate_votes'];
-							$vote = ($can_votes / 25) * 100;
+							$vote = ($can_votes / $num_of_voters) * 100;
 
 
 							$run_id = "SELECT * FROM party WHERE party_id = '$party'";
