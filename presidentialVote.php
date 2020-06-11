@@ -51,7 +51,7 @@ if (empty($_SESSION['fname'])) {
 
                                 echo "
                                   <tr onClick='Content()' id='myRow'>
-                                    <td > $name</td>
+                                    <td > <img style='width: 50px; height: 50px' src='images/" . $img . "' /></td>
                                     <td class='font-weight-bold'>" . $array['party_name'] . "&nbsp;&nbsp; <img style='width: 50px; height: 50px' src='images/" . $array['party_logo'] . "' /></td>
                                     <td ><input type='submit' name='vote' value='$name' class='btn'/></td>
                                   </tr> 

@@ -19,14 +19,14 @@
     <?php include('../connection.php') ?>
     <div class="container" style=" padding-left: 0; padding-top: 30px; padding-bottom: 30px; margin-top: 40px;  margin-bottom: 100px">
         <h1 class="font-weight-bold text-center">Add candidates</h1>
-        <form name="form1" method="POST">
+        <form name="form1" method="POST" enctype='multipart/form-data'>
             <div class="form-group" style="margin-top: 10px; ">
                 <label class="font-weight-bold">Candidate Name :</label>
                 <input type="text" class="form-control"name="candidate_name" />
             </div>
             <div class="form-group" style="margin-top: 20px">
                 <label class="font-weight-bold">Candidate Image</label>
-                <input name="image" type="file" class="form-control" />
+                <input name="file" type="file" class="form-control" />
             </div>
             <div class="form-group" style="margin-top: 20px">
                 <label class="font-weight-bold">Party Name </label>
@@ -98,16 +98,35 @@ if (isset($_POST['submit'])) {
     $position = $_POST['position'];
     $constituency = $_POST['constituency'];
      
-    // $img = rand(10, 1000). "-" .$_FILES['image']['name'];
-    // $tName = $_FILES['images']['tmp_name'];
+    /**************************** */
+    $image_name = $_FILES['file']['name'];
+    $target_dir = "../images/";
+    $target_file = $target_dir . basename($_FILES["file"]["name"]);
+
+    // Select file type
+    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+    // Valid file extensions
+    $extensions_arr = array("jpg","jpeg","png","gif");
+
+    // Check extension
+    if( in_array($imageFileType,$extensions_arr) ){
     
-    // $dir = '/images';   
-    // move_uploaded_file($tName, $dir. '/' .$img);
+        // Insert record
+        $query = "insert into images(image_text) values('".$image_name."')";
+        mysqli_query($con,$query);
+    
+        // Upload file
+        move_uploaded_file($_FILES['file']['tmp_name'],$target_dir.$image_name);
+        echo $target_dir.$name;
+
+    }
+    /**************************** */
 
     $num = 2;
 
-    if (!$position == 2) {
-        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `party_id`, `position_id`, `candidate_votes`) VALUES ('$name', '$party_name_id', '$position', 0)";
+    if ($position == 1) {
+        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `candidate_img`, `party_id`, `position_id`, `candidate_votes`) VALUES ('$name', '$image_name', '$party_name_id', '$position', 0)";
         $run_insert = mysqli_query($con, $insert);
 
         if ($run_insert) {
