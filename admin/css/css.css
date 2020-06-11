@@ -284,11 +284,7 @@ td {
   bottom: 0;
   right: 0;
 }
-.no-guest {
-  text-align: center;
-  padding-right: 6rem;
-  margin-top: 3rem;
-}
+
 .question {
   color: #333;
   margin: 1.5rem 0;
@@ -358,31 +354,12 @@ td {
     margin-left: 0.7rem;
   }
 
-  .filter {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 3rem;
-    align-items: baseline;
-    margin-top: 1rem;
-    width: 100%;
-    flex-wrap: wrap;
-    order: 3;
-  }
-  .guests {
-    margin-top: 0;
-  }
-  .guest-card h1 {
-    font-size: 1.5rem;
-  }
   .myLabel {
     margin-right: 0;
   }
 }
 
 @media (max-width: 900px) {
-  .guests {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .myLabel {
     margin-right: 0;
   }
@@ -401,18 +378,13 @@ td {
   .login {
     width: 70%;
   }
-  .main,
-  .filter,
-  .guests {
+  .main {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
   }
-  .invite-section {
-    width: 100%;
-    margin: auto;
-  }
+ 
   table {
     font-size: 12px;
   }
@@ -423,10 +395,6 @@ td {
   .navbar h1 {
     font-size: 14px;
   }
-
-  .guest-card {
-    width: 100%;
-  }
   table {
     margin: 0;
   }
@@ -435,18 +403,3 @@ td {
   }
 }
 
-/* **************************Animation (Add After) *********************** */
-.item-enter {
-  opacity: 0;
-}
-.item-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-.item-exit {
-  opacity: 1;
-}
-.item-exit-active {
-  opacity: 0;
-  transition: opacity 500ms ease-in;
-}

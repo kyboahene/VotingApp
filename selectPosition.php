@@ -24,7 +24,7 @@ if (empty($_SESSION['fname'])) {
             <h4>Choose position to vote on</h4>
             <div class="">
                 <a href="presidentialVote.php"><button class="btn">Presidential</button></a>
-                <a href="parlimentaryVote.php"><button class="btn">Parlimentary</button></a>
+                <a href="parlimentaryVote.php"><button class="btn">Parliamentary</button></a>
             </div>
         </div>
     </div>

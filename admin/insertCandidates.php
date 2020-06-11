@@ -12,25 +12,25 @@
     <?php
     session_start();
     if (empty($_SESSION['admin'])) {
-        header("location:access-denied.php");
+        header("location:index.php");
     }
     ?>
     <?php include_once '../includes/navbar.php' ?>
     <?php include('../connection.php') ?>
-    <div class="center row" style=" padding-left: 0; padding-top: 30px; padding-bottom: 30px; margin-top: 100px;  margin-bottom: 100px">
-        <h1 class="font-weight-bold">Add candidates</h1>
+    <div class="container" style=" padding-left: 0; padding-top: 30px; padding-bottom: 30px; margin-top: 40px;  margin-bottom: 100px">
+        <h1 class="font-weight-bold text-center">Add candidates</h1>
         <form name="form1" method="POST">
-            <div style="margin-top: 20px; ">
-                <label>Candidate Name :</label>
-                <input type="text" name="candidate_name" />
+            <div class="form-group" style="margin-top: 10px; ">
+                <label class="font-weight-bold">Candidate Name :</label>
+                <input type="text" class="form-control"name="candidate_name" />
             </div>
-            <div style="margin-top: 20px">
-                <label>Candidate Image</label>
-                <input name="can_image" type="file" class="form-control" />
+            <div class="form-group" style="margin-top: 20px">
+                <label class="font-weight-bold">Candidate Image</label>
+                <input name="image" type="file" class="form-control" />
             </div>
-            <div style="margin-top: 20px">
-                <label>Party Name </label>
-                <select name="party">
+            <div class="form-group" style="margin-top: 20px">
+                <label class="font-weight-bold">Party Name </label>
+                <select name="party" class="form-control">
                     <option>Select a party</option>
                     <?php
                     $get_party = "SELECT * FROM party";
@@ -43,9 +43,9 @@
                     ?>
                 </select>
             </div>
-            <div style="margin-top: 20px">
-                <label>Position: </label>
-                <select name="position">
+            <div class="form-group" style="margin-top: 20px">
+                <label class="font-weight-bold">Position: </label>
+                <select name="position" class="form-control">
                     <option>Select a position</option>
                     <?php
                     $sql = "SELECT * FROM positions";
@@ -58,9 +58,9 @@
                     ?>
                 </select>
             </div>
-            <div style="margin-top: 20px; ">
-                <label>Constituency :</label>
-                <select name="constituency">
+            <div class="form-group" style="margin-top: 20px; ">
+                <label class="font-weight-bold">Constituency :</label>
+                <select name="constituency" class="form-control">
                     <option>Select a constituency</option>
                     <?php
                     $con_sql = "SELECT * FROM constituency";
@@ -73,11 +73,11 @@
                     ?>
                 </select>
             </div>
-            <div>
-                <input type="submit" name="submit" value="submit" class="btn" />
+            <div class="form-group">
+                <input type="submit" name="submit" value="submit" class="btn form-control" />
             </div>
         </form>
-        <a href="admin.php" class="text-dark mt-3">
+        <a href="manage-candidates.php" class="text-dark mt-3">
             <h5 class="font-weight-bold "> <i class="fas fa-angle-double-left"></i>Go Back </h5>
         </a>
     </div>
@@ -97,16 +97,17 @@ if (isset($_POST['submit'])) {
     $party_name_id =  $_POST['party'];
     $position = $_POST['position'];
     $constituency = $_POST['constituency'];
+     
+    // $img = rand(10, 1000). "-" .$_FILES['image']['name'];
+    // $tName = $_FILES['images']['tmp_name'];
+    
+    // $dir = '/images';   
+    // move_uploaded_file($tName, $dir. '/' .$img);
 
-    $img1 = $_FILES['can_image'];
+    $num = 2;
 
-    move_uploaded_file($img1, "images/$img1");
-
-    $num = 1;
-    echo $party_name_id;
-
-    if (!$position = 2) {
-        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `candidate_img`, `party_id`, `position_id`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$position', 0)";
+    if (!$position == 2) {
+        $insert = "INSERT INTO `pres_candidates`( `candidate_name`, `party_id`, `position_id`, `candidate_votes`) VALUES ('$name', '$party_name_id', '$position', 0)";
         $run_insert = mysqli_query($con, $insert);
 
         if ($run_insert) {
@@ -116,13 +117,13 @@ if (isset($_POST['submit'])) {
             echo "<script>header(location:insertCandidates.php)</script>";
         }
     } else {
-        $insert = "INSERT INTO `par_candidates`( `candidate_name`, `candidate_img`, `party_id`,`position_id`, `constituency`, `candidate_votes`) VALUES ('$name',  '$img1', '$party_name_id', '$position', '$constituency', 0)";
+        $insert = "INSERT INTO `par_candidates`(`candidate_name`, `party_id`, `position_id`, `const_id`, `candidate_votes`) VALUES ('$name','$party_name_id', '$position', '$constituency', 0)";
         $run_insert = mysqli_query($con, $insert);
 
         if ($run_insert) {
             echo "<script>alert('Candidates has been added successfully')</script>";
         } else {
-            echo "<script>alert('not successful')</script>";
+            echo "<script>alert('it was not successful')</script>";
             echo "<script>header(location:insertCandidates.php)</script>";
         }
     }

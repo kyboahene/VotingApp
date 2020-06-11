@@ -3,7 +3,7 @@ require('../connection.php');
 
 session_start();
 if (empty($_SESSION['admin'])) {
-    header("location:access-denied.php");
+    header("location:index.php");
 }
 ?>
 <html>
@@ -15,7 +15,7 @@ if (empty($_SESSION['admin'])) {
 
 <body>
     <?php include_once '../includes/navbar.php' ?>
-    <div class="container " style="  margin: 14.5rem auto; ">
+    <div class="container " style="  margin: 14.3rem auto; ">
         <div class="row text-center ">
             <h2 class="font-weight-bold">Ghana Polling System</h2>
         </div>
@@ -24,8 +24,8 @@ if (empty($_SESSION['admin'])) {
             <h4>Overview of the election</h4>
             <div class="">
                 <a href="results.php"><button class="btn">Results</button></a>
-                <a href="manage-admins.php"><button class="btn">Manage Admins</button></a>
-                <a href="insertCandidates.php"><button class="btn">Add candidates</button></a>
+                <a href="manageUsers.php"><button class="btn">Manage Users</button></a>
+                <a href="manage-candidates.php"><button class="btn">Manage candidates</button></a>
             </div>
         </div>
     </div>
