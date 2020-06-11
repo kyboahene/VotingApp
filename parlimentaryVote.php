@@ -19,7 +19,7 @@ if (empty($_SESSION['fname'])) {
     <div class="row center" style="margin-top: 50px; margin-bottom: 50px">
         <div style="margin-left: 45px">
             <h1 class="font-weight-bold" style="margin-bottom: 0"><img src="images/candidate-2.gif" height='30px' alt="" />ELECTION <?php echo Date('Y') ?></h1>
-            <h4 style="margin-left: 10px">PARLIMENTARY BALLOT</h4>
+            <h4 style="margin-left: 10px">PARLIAMENTARY BALLOT</h4>
         </div>
         <form method="POST">
             <table style="margin-top: 30px" class="table-striped">
